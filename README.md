@@ -80,47 +80,28 @@ Pada proses vektorisasi ini, digunakan metode sebagai berikut.
 
 #### content-based filtering
 
-Model machine learning yang digunakan pada sistem rekomendasi ini adalah model content-based filtering dengan simlarty measure yang digunakan adalah Cosine Similarity.
+Model machine learning yang digunakan pada sistem rekomendasi ini adalah model content-based filtering dengan similarty measure yang digunakan adalah Cosine Similarity.
 
-Model content-based filtering ini bekerja dengan mempelajari profil minat pengguna baru berdasarkan data dari objek yang telah dinilai pengguna. Metode ini bekerja dengan menyarankan item serupa yang pernah disukai sebelumnya atau sedang dilihat sekarang kepada pengguna berdasrakan kategori tertentu dari item yang dinilai oleh pengguna dengan menggunakan similarity tertentu.
+<img width="635" alt="Screenshot 2023-02-27 at 22 22 25" src="https://user-images.githubusercontent.com/90955264/221604668-0afc5047-9e90-4fc7-9f03-95449c5fdeca.png">
 
-Sedangkan cosine similarity adalah salah satu teknik mengukur kesamaan yang bekerja dengan mengukur kesamaan antara dua vektor dan menentukan apakah kedua vektor tersebut menunjuk ke arah yang sama dengan menghitung sudut cosinus antara dua vektor. Semakin kecil sudut cosinus, semakin besar nilai cosine similarity.
+cosine similarity adalah salah satu teknik mengukur kesamaan yang bekerja dengan mengukur kesamaan antara dua vektor dan menentukan apakah kedua vektor tersebut menunjuk ke arah yang sama dengan menghitung sudut cosinus antara dua vektor. Semakin kecil sudut cosinus, semakin besar nilai cosine similarity.
+
 
 untuk memperoleh rekomendasi destinasi wisata , gunakan fungsi model.predict() dari library Keras dengan menerapkan kode berikut.
 ini adalah 10 rekomendasi wisata 
 
-<img width="1158" alt="Screenshot 2023-02-27 at 18 17 44" src="https://user-images.githubusercontent.com/90955264/221550217-1181e1e2-eeba-4319-bd21-74f14eb6ccc9.png">
+<img width="589" alt="Screenshot 2023-02-27 at 22 15 29" src="https://user-images.githubusercontent.com/90955264/221602747-9119b736-6f3e-4aa0-a049-aa86177c20f7.png">
+ 
+#### Collaborative Based Filtering
+Model ini memilki konsep merekomendasikan wisata berdasarkan rating yang diberikan pengunjung lain. Sebelum membuat model ini, data harus melalui proses Training terlebih dahulu. Sebelum malakukan training, data harus di bagi terlebih dahulu menjadi data training dan data validation, dengan skala perbandingan data adalah 80:20, dan menggunakan activation sigmoid. Namun sebelumnya, perlu memetakan (mapping) data user dan game menjadi satu value terlebih dahulu, kemudian membuat rating dalam skala 0 sampai 1 agar mudah dalam melakukan proses training. Setelah melakukan semua proses itu maka selanjutnya melakukan uji coba pada model
 
-Model machine learning yang digunakan pada sistem rekomendasi ini adalah model content-based filtering dengan similarity measure yang digunakan adalah Cosine Similarity.
+<img width="338" alt="Screenshot 2023-02-27 at 22 25 58" src="https://user-images.githubusercontent.com/90955264/221605617-dc9de48a-685e-493d-b940-38b23a08f699.png">
 
-#### collaborative filtering.
-<img width="429" alt="Screenshot 2023-02-27 at 21 06 11" src="https://user-images.githubusercontent.com/90955264/221584699-4a94bd88-ead7-4709-8152-0863b5bcfa73.png">
-
-Pertama-tama, data wisata dan data rating digabungkan menjadi satu data frame dengan menggunakan fungsi merge pada library pandas. Setelah itu, dilakukan proses pembuatan model content-based filtering dengan Cosine Similarity dengan menghitung similarity antara data wisata dengan data rating yang dimiliki oleh user.
-
-<img width="746" alt="Screenshot 2023-02-27 at 18 08 59" src="https://user-images.githubusercontent.com/90955264/221548466-94823d54-3a34-4889-b111-ade89cd5f91b.png">
-
-
-Pada proses di atas, dilakukan proses pembuatan user-item matrix yang akan digunakan sebagai acuan dalam proses rekomendasi. Kemudian, NaN values pada user-item matrix diubah menjadi 0. Selanjutnya, dilakukan perhitungan Cosine Similarity matrix antara data wisata dan data rating yang dimiliki oleh user.
-
-Setelah mendapatkan Cosine Similarity matrix, langkah selanjutnya adalah membuat fungsi untuk melakukan proses rekomendasi berdasarkan input dari user. Pada sistem rekomendasi ini, fungsi rekomendasi yang dibuat akan menghasilkan 5 rekomendasi wisata yang paling sesuai dengan preferensi yang dimiliki oleh user.
-
-<img width="1246" alt="Screenshot 2023-02-27 at 17 08 51" src="https://user-images.githubusercontent.com/90955264/221535037-7f77527e-c04e-47b1-998b-7c03b7120435.png">
-
-Pada fungsi rekomendasi di atas, dilakukan proses pencarian similarity scores antara user yang sedang login dengan user lainnya pada Cosine Similarity matrix. Kemudian, similarity scores diurutkan dari yang terbesar hingga terkecil, dan diambil 5 user dengan similarity scores terbesar sel.
 
 ## Evaluation
 
-Dalam proses evaluasi, akan disajikan informasi mengenai perbandingan mengenai model pertama dan kedua melalui dua metrik berikut:
-
-Loss (Mean Squared Error Loss)
-Mean Squared Erorr Loss berfungsi untuk menghitung rata-rata kuadrat kesalahan antara label dan prediksi. Dengan demikian semakin rendahnya nilai loss (mean squared error loss) maka semakin baik dan akurat model yang dibuat. Berikut adalah hasil perbandingan loss dan val_loss pada kedua model yang telah dibuat.
-
-#### Precision Content Based Filtering
+#### Content based Filtering
 Metric yang digunakan pada sistem rekomendasi wisata dengan menggunakan accuracy precision. Precision adalah metrik yang membandingkan rasio prediksi benar atau positif dengan keseluruhan hasil yang diprediksi positif dengan rumus.
-
-<img width="509" alt="Screenshot 2023-02-27 at 17 19 02" src="https://user-images.githubusercontent.com/90955264/221537298-0bba8751-d3dd-49ef-8387-f9a533a313d9.png">
-
 
 <img width="821" alt="Screenshot 2023-02-27 at 20 58 22" src="https://user-images.githubusercontent.com/90955264/221583000-96c6adec-8baf-4e0e-9258-7d4a4c8b1e75.png">
 
@@ -129,4 +110,12 @@ Dari hasil rekomendasi di atas, diketahui bahwa Wisata Trans Studio bandung term
 <img width="807" alt="Screenshot 2023-02-27 at 20 58 28" src="https://user-images.githubusercontent.com/90955264/221583030-a45e8b9b-a829-4264-9d4f-deb623029ae4.png">
 
 Dari hasil rekomendasi di atas, diketahui bahwa Wisata Air Mancur Menari termasuk ke dalam kota Surabaya.  Dari 5 item yang direkomendasikan, 5 item memiliki kategori Surabaya(similar). Artinya, precision sistem kita sebesar 5/5 atau 100%.
+
+#### collaborative based Filtering
+
+Pada Collaborative Based Filtering, saya memakai metrik evaluasi RMSE untuk mengevaluasi model saya. Mean Squared Erorr Loss berfungsi untuk menghitung rata-rata kuadrat kesalahan antara label dan prediksi. Dengan demikian semakin rendahnya nilai loss (mean squared error loss) maka semakin baik dan akurat model yang dibuat. Berikut adalah hasil perbandingan loss dan val_loss pada kedua model yang telah dibuat.
+
+<img width="509" alt="Screenshot 2023-02-27 at 17 19 02" src="https://user-images.githubusercontent.com/90955264/221537298-0bba8751-d3dd-49ef-8387-f9a533a313d9.png">
+
+Perhatikanlah, proses training model cukup smooth dan model konvergen pada epochs sekitar 100. Dari proses ini, kita memperoleh nilai error akhir sebesar sekitar 0.32 dan error pada data validasi sebesar 0.37. 
 
